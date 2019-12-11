@@ -2,22 +2,21 @@
 
 <!-- Page Title
 ============================================= -->
-    <section id="page-title">
-      <div class="container clearfix">
-        <h1><?php single_post_title(); ?></h1>
-          <span>
-          <?php 
-          
-          if(function_exists( 'the_subtitle')){
-            the_subtitle(); 
+<section id="page-title">
+  <div class="container clearfix">
+    <h1><?php single_post_title(); ?></h1>
+    <span>
+      <?php
 
-          }
-          
-          ?>
-  
-          </span>
-        </div>
-    </section><!-- #page-title end -->
+      if (function_exists('the_subtitle')) {
+        the_subtitle();
+      }
+
+      ?>
+
+    </span>
+  </div>
+</section><!-- #page-title end -->
 
 
 <!-- Content
@@ -35,87 +34,87 @@
 
         <?php
 
-          while (have_posts()) {
-            the_post();
+        while (have_posts()) {
+          the_post();
 
-            global $post;
-            $author_ID        =  $post->post_author;
-            $author_URL       =  get_author_posts_url($author_ID);
+          global $post;
+          $author_ID        =  $post->post_author;
+          $author_URL       =  get_author_posts_url($author_ID);
 
-            ?>
-            <div class="single-post nobottommargin">
+          ?>
+          <div class="single-post nobottommargin">
 
-              <!-- Single Post
+            <!-- Single Post
     ============================================= -->
-              <div class="entry clearfix">
+            <div class="entry clearfix">
 
-    
 
-                <!-- Entry Image
+
+              <!-- Entry Image
         ============================================= -->
-                <div class="entry-image">
-                  <?php
+              <div class="entry-image">
+                <?php
 
-                      if (has_post_thumbnail()) {
-                        ?>
-                    <div class="entry-image">
-                      <a href="<?php the_permalink(); ?>">
-                        <?php the_post_thumbnail('full'); ?>
-                      </a>
-                    </div>
-                  <?php
+                  if (has_post_thumbnail()) {
+                    ?>
+                  <div class="entry-image">
+                    <a href="<?php the_permalink(); ?>">
+                      <?php the_post_thumbnail('full'); ?>
+                    </a>
+                  </div>
+                <?php
 
-                      }
+                  }
 
-                      ?>
-                </div><!-- .entry-image end -->
+                  ?>
+              </div><!-- .entry-image end -->
 
-                <!-- Entry Content
+              <!-- Entry Content
         ============================================= -->
-                <div class="entry-content notopmargin">
-
-                  <?php
-
-                      the_content();
-
-                      $defaults = array(
-                        'before'           => '<p class="text-center">' . __('Pages:', 'teste wp'),
-                        'after'            => '</p>',
-                      );
-
-                      wp_link_pages($defaults);
-
-
-                      ?>
-                  <!-- Post Single - Content End -->
-
-                  
-
-                  <div class="clear"></div>
-
-                </div>
-              </div><!-- .entry end -->
-
-              
-              <div class="line"></div>
-
-              <!-- Comments
-    ============================================= -->
-              <div id="comments" class="clearfix">
+              <div class="entry-content notopmargin">
 
                 <?php
-                    if (comments_open() || get_comments_number()) {
-                      comments_template();
-                    }
-                    ?>
+
+                  the_content();
+
+                  $defaults = array(
+                    'before'           => '<p class="text-center">' . __('Pages:', 'teste wp'),
+                    'after'            => '</p>',
+                  );
+
+                  wp_link_pages($defaults);
+
+
+                  ?>
+                <!-- Post Single - Content End -->
+
+
+
+                <div class="clear"></div>
+
+              </div>
+            </div><!-- .entry end -->
+
+
+            <div class="line"></div>
+
+            <!-- Comments
+    ============================================= -->
+            <div id="comments" class="clearfix">
+
+              <?php
+                if (comments_open() || get_comments_number()) {
+                  comments_template();
+                }
+                ?>
             <?php
-              }
-            
+            }
+
             ?>
 
-              </div><!-- .postcontent end -->
+            </div><!-- .postcontent end -->
 
-            </div>
+          </div>
       </div>
 
       <?php get_sidebar(); ?>
