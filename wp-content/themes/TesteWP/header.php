@@ -11,9 +11,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Document Title
-	============================================= -->
-  <title>Index Template</title>
 
 </head>
 
@@ -33,11 +30,19 @@
           <!-- Top Links
           ============================================= -->
           <div class="top-links">
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
+            <?php
+
+            if (has_nav_menu('secondary')) {
+              wp_nav_menu([
+                'theme_location'      =>  'secondary',
+                'container'           =>  false,
+                'fallback_cb'         =>  false,
+                'depth'               =>  1,
+                //'walker'              =>  new JU_Custom_Nav_Walker()
+              ]);
+            }
+
+            ?>
           </div><!-- .top-links end -->
 
         </div>
@@ -48,31 +53,50 @@
           ============================================= -->
           <div id="top-social">
             <ul>
-              <li>
-                <a href="#" class="si-facebook">
-                  <span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="si-twitter">
-                  <span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="si-instagram">
-                  <span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span>
-                </a>
-              </li>
-              <li>
-                <a href="tel:+55.55.5555555" class="si-call">
-                  <span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+55.55.5555555</span>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:info@email.com" class="si-email3">
-                  <span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text">info@email.com</span>
-                </a>
-              </li>
+              <?php
+
+
+              if (get_theme_mod('ju_facebook_handle')) {
+                ?><li>
+                  <a href="https://facebook.com/<?php echo get_theme_mod('ju_facebook_handle'); ?>" class="si-facebook">
+                    <span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span>
+                  </a>
+                </li><?php
+              }
+
+              if (get_theme_mod('ju_twitter_handle')) {
+                ?><li>
+                  <a href="https://twitter.com/<?php echo get_theme_mod('ju_twitter_handle'); ?>" class="si-twitter">
+                    <span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span>
+                  </a>
+                </li><?php
+              }
+
+              if (get_theme_mod('ju_instagram_handle')) {
+                ?><li>
+                  <a href="https://instagram/<?php echo get_theme_mod('ju_instagram_handle'); ?>" class="si-instagram">
+                    <span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span>
+                  </a>
+                </li><?php
+              }
+
+              if (get_theme_mod('ju_phone_handle')) {
+                ?><li>
+                  <a href="tel:<?php echo get_theme_mod('ju_phone_handle'); ?>" class="si-call">
+                    <span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text"><?php echo get_theme_mod('ju_phone_handle'); ?></span>
+                  </a>
+                </li><?php
+              }
+
+              if (get_theme_mod('ju_email_handle')) {
+                ?><li>
+                  <a href="tel:<?php echo get_theme_mod('ju_email_handle'); ?>" class="si-email3">
+                    <span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text"><?php echo get_theme_mod('ju_email_handle'); ?></span>
+                  </a>
+                </li><?php
+              }
+
+             ?>
             </ul>
           </div><!-- #top-social end -->
 
@@ -91,11 +115,24 @@
         <!-- Logo
         ============================================= -->
         <div id="logo">
-          <a href="#" class="standard-logo">Udemy</a>
+          <?php
+
+          if (has_custom_logo()) {
+            the_custom_logo();
+          } else {
+            ?>
+            <a href="<?php echo home_url('/'); ?>" class="standard-logo"><?php bloginfo('name'); ?></a>
+          <?php
+          }
+          ?>
         </div><!-- #logo end -->
 
         <div class="top-advert">
-          <img src="images/magazine/ad.jpg">
+          <?php
+          if (function_exists('quads_ad')) {
+            quads_ad(['location' => 'udemy_header']);
+          }
+          ?>
         </div>
 
       </div>
@@ -169,8 +206,11 @@
               <a href="#" id="top-search-trigger">
                 <i class="icon-search3"></i><i class="icon-line-cross"></i>
               </a>
-              <form action="#" method="get">
-                <input type="text" name="q" class="form-control" placeholder="Type &amp; Hit Enter.." value="">
+              <form action="<?php echo esc_url(home_url('/')); ?>" method="get">
+                <input type="text" name="q" 
+                  class="form-control" 
+                  placeholder="<?php _e('Type &amp; Hit Enter..', 'teste wp')?>" 
+                  value="<?php the_search_query(); ?>">
               </form>
             </div><!-- #top-search end -->
 
