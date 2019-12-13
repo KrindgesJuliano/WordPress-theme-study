@@ -61,6 +61,13 @@ function ju_enqueue()
   );
 
 
+  $read_more_color          =   get_theme_mod('ju_read_more_color');
+  wp_add_inline_style(
+    'ju_custom',
+    'a.more-link{ color: ' . $read_more_color . '; border-color: ' . $read_more_color . ';}'
+  );
+
+
   wp_enqueue_style('ju_google_fonts');
   wp_enqueue_style('ju_bootstrap');
   wp_enqueue_style('ju_style');

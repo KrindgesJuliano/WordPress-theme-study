@@ -25,6 +25,14 @@ function ju_misc_customizer_section($wp_customize)
     'default'         => 0,
   ));
 
+  $wp_customize->add_setting('ju_read_more_color',[
+    'default'         =>  '#1ABC9c'
+  ]);
+
+  $wp_customize->add_setting('ju_report_file', [
+    'default'         =>  ''
+  ]);
+
   $wp_customize->add_section('ju_misc_section', [
     'title'           =>  __('Udemy Misc Settigins', 'teste wp'),
     'priority'        =>  30,
@@ -93,4 +101,24 @@ function ju_misc_customizer_section($wp_customize)
 
     )
   ));
+
+  $wp_customize->add_control(new WP_Customize_Color_Control(
+    $wp_customize,
+    'ju_read_more_color_input',
+    array( 
+      'label'         =>  __('Read more link color', 'teste wp'),
+      'section'       =>  'ju_misc_section',
+      'settings'      =>  'ju_read_more_color',
+    ))
+  );
+
+  $wp_customize->add_control(new WP_Customize_Upload_Control(
+    $wp_customize,
+    'ju_report_file_input',
+    array( 
+      'label'         =>  __('File Report', 'teste wp'),
+      'section'       =>  'ju_misc_section',
+      'settings'      =>  'ju_report_file',
+    ))
+  );
 }
