@@ -39,3 +39,4 @@ function recipe_init(){
 
 	register_post_type( 'recipe', $args );
 }
+
